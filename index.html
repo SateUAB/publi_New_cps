@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Chamadas Públicas - SATE/UAB/UECE</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9; /* slate-100 */
+        }
+        .form-label {
+            /* Making labels bolder to give them more presence */
+            @apply block text-sm font-bold text-gray-800;
+        }
+        .form-input, .form-select {
+            /* Highlighting the input fields more */
+            @apply block w-full px-4 py-3 bg-slate-50 border-2 border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none text-base transition-all duration-150;
+            width: 99%;
+            background-color: rgb(252, 252, 252);
+            box-shadow: 0 0 0 2px rgba(97, 97, 97, 0.3);
+
+        }
+
+        .form-input:focus, .form-select:focus {
+            /* A more prominent focus state */
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+            @apply bg-white border-indigo-500;
+        }
+        .btn {
+            @apply inline-flex items-center justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors;
+        }
+        .btn-primary {
+            @apply bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500;
+        }
+        .btn-secondary {
+            @apply bg-gray-700 hover:bg-gray-800 focus:ring-gray-600;
+        }
+        .btn-danger {
+             @apply bg-red-600 hover:bg-red-700 focus:ring-red-500;
+        }
+        #preview-container {
+            @apply bg-white p-6 rounded-lg shadow-md border border-gray-200 min-h-[464px];
+        }
+        #preview-container p, #preview-container h4 {
+            text-align: justify;
+        }
+        .section-header {
+            @apply text-xl font-bold text-gray-800 pb-3 border-b border-gray-200 mb-6;
+        }
+        .card {
+            @apply rounded-xl shadow-lg mb-8 p-6 md:p-8;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="w-full max-w-screen-2xl mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold text-gray-800 tracking-tight">Gerador de Chamadas Públicas</h1>
+            <p class="mt-3 text-lg text-gray-600">Uma ferramenta moderna para criar suas publicações.</p>
+        </header>
+
+        <form id="call-form">
+            <!-- Single Card for all form elements -->
+            <div class="card bg-white">
+                <section class="mb-10">
+                    <h2 class="section-header">Informações Principais</h2>
+                    <div class="space-y-6 mt-4">
+                        <!-- Linha do formulário reestruturada -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-x-6 items-center">
+                            <label for="chamada-numero" class="form-label md:text-right">Chamada Pública Nº</label>
+                            <div class="md:col-span-3">
+                                <input type="text" id="chamada-numero" class="form-input" placeholder="Ex: 66/2025" required>
+                            </div>
+                        </div>
+                        <!-- Linha do formulário reestruturada -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-x-6 items-start">
+                            <label for="titulo-completo" class="form-label md:text-right pt-3">Título Completo da Seleção</label>
+                            <div class="md:col-span-3">
+                                <textarea id="titulo-completo" class="form-input" rows="4" placeholder="Ex: PARA SELEÇÃO DE TUTOR PARA ATENDIMENTO DE ALUNO COM DEFICIÊNCIA..." required></textarea>
+                            </div>
+                        </div>
+                        <!-- Linha do formulário reestruturada -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-x-6 items-start">
+                            <label for="resumo-chamada" class="form-label md:text-right pt-3">Parágrafo de Introdução</label>
+                            <div class="md:col-span-3">
+                                <textarea id="resumo-chamada" class="form-input" rows="8" placeholder="Cole aqui o resumo do edital (primeiro parágrafo)..." required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mb-10">
+                    <h2 class="section-header">Documentos da Chamada</h2>
+                    <div class="space-y-6 mt-4">
+                        <!-- Linha do formulário reestruturada -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-x-6 items-center">
+                            <label for="edital-link" class="form-label md:text-right">Link para o Edital (URL)</label>
+                            <div class="md:col-span-3">
+                                <input type="url" id="edital-link" class="form-input" placeholder="https://www.uece.br/sate/wp-content/uploads/sites/..." required>
+                            </div>
+                        </div>
+                        <!-- Linha do formulário reestruturada -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-x-6 items-center">
+                            <label for="inscricao-link" class="form-label md:text-right">Link para Inscrição (URL)</label>
+                            <div class="md:col-span-3">
+                                <input type="url" id="inscricao-link" class="form-input" placeholder="https://forms.gle/..." required>
+                            </div>
+                        </div>
+                        <div id="dynamic-docs-container" class="space-y-6 pt-4 border-t border-gray-200"></div>
+                        <!-- Linha do formulário reestruturada -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-x-6">
+                            <div class="md:col-start-2 md:col-span-3">
+                                <button type="button" id="add-doc-button" class="btn btn-primary w-full md:w-auto">
+                                    <i class="fas fa-plus mr-2"></i> Adicionar Documento (Adendo, Resultado, etc.)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                     <h2 class="section-header">Configurações Finais</h2>
+                     <div class="mt-4 grid grid-cols-1 md:grid-cols-4 gap-x-6 items-center">
+                         <label for="ano-chamadas" class="form-label md:text-right">Ano da Página de Chamadas</label>
+                         <div class="md:col-span-3">
+                             <input type="number" id="ano-chamadas" class="form-input w-full md:w-1/3" placeholder="Ex: 2025" required>
+                         </div>
+                    </div>
+                </section>
+            </div>
+        </form>
+
+        <!-- Output Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
+            <div>
+                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Pré-visualização</h2>
+                 <div id="preview-container">
+                    <p class="text-gray-500">A pré-visualização aparecerá aqui.</p>
+                </div>
+            </div>
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Código Gerado</h2>
+                <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+                    <div class="flex justify-end mb-2">
+                        <button id="copy-button" class="btn btn-secondary">
+                            <i class="fas fa-copy mr-2"></i> Copiar Código
+                        </button>
+                    </div>
+                    <textarea id="html-output" class="w-full h-96 p-3 bg-gray-900 text-green-400 font-mono text-sm border border-gray-700 rounded-md resize-none" readonly></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Elementos do DOM ---
+        const form = document.getElementById('call-form');
+        const previewContainer = document.getElementById('preview-container');
+        const htmlOutput = document.getElementById('html-output');
+        const copyButton = document.getElementById('copy-button');
+        const addDocButton = document.getElementById('add-doc-button');
+        const dynamicDocsContainer = document.getElementById('dynamic-docs-container');
+        let docCounter = 0;
+
+        /**
+         * Gera o HTML da chamada pública com base nos dados do formulário.
+         */
+        function generateCall() {
+            const chamadaNumero = document.getElementById('chamada-numero').value;
+            const tituloCompleto = document.getElementById('titulo-completo').value;
+            const resumoChamada = document.getElementById('resumo-chamada').value;
+            const editalLink = document.getElementById('edital-link').value;
+            const inscricaoLink = document.getElementById('inscricao-link').value;
+            const anoChamadas = document.getElementById('ano-chamadas').value;
+            const linkPaginaChamadas = `http://www.uece.br/sate/home/servicos-e-informativos/chamadas-publicas/chamadas-publicas-${anoChamadas}/`;
+
+            let dynamicDocsHtml = '';
+            const dynamicDocs = dynamicDocsContainer.querySelectorAll('.dynamic-doc-content');
+            dynamicDocs.forEach(doc => {
+                const docTitle = doc.querySelector('.doc-title').value;
+                const docLink = doc.querySelector('.doc-link').value;
+                const docColor = doc.querySelector('.doc-color').value;
+                if (docTitle && docLink) {
+                    dynamicDocsHtml += `<h4><strong><a href="${docLink}" style="color: ${docColor}; text-decoration: none;">${docTitle.toUpperCase()}</a></strong></h4>\n`;
+                }
+            });
+
+            const htmlTemplate = `
+<p>SATE/UAB/UECE publica o edital para a CHAMADA PÚBLICA N° ${chamadaNumero}</p>
+<p style="text-align: justify;">A coordenação da SATE/UAB/UECE publica o edital para a CHAMADA PÚBLICA Nº ${chamadaNumero} ${tituloCompleto}.</p>
+<p style="text-align: justify;">${resumoChamada}</p>
+<h4><a href="${editalLink}"><strong><span style="color: #0400ff">EDITAL</span></strong></a></h4>
+<h4><a href="${inscricaoLink}"><strong><span style="color: #0400ff">FORMULÁRIO DE INSCRIÇÃO</span></strong></a></h4>
+${dynamicDocsHtml.trim()}
+<p><strong><span style="color: #ff0000;">ATENÇÃO:</span></strong> Para evitar complicações durante o preenchimento da ficha, recomendamos que comecem a preencher com todos os arquivos no formato PDF e que cada arquivo seja menor que 1MB, tamanho máximo permitido pelo sistema. Eventuais duvidas devem ser retirada direcionadas para o email <a href="mailto:cp.sate@uece.br" style="color: #0011ff; text-decoration: none;"><strong>cp.sate@uece.br</strong></a></p>
+<p>&nbsp;</p>
+<hr />
+<h4><span style="color: #000000;">Segue abaixo o link encaminhando para a página das Chamadas Públicas.</span></h4>
+<h4><strong><span style="color: #0011ff"><a style="color: #0011ff" href="${linkPaginaChamadas}">Chamadas Públicas - ${anoChamadas}</a></span></strong></h4>
+`;
+            previewContainer.innerHTML = htmlTemplate || '<p class="text-gray-500">A pré-visualização aparecerá aqui.</p>';
+            htmlOutput.value = htmlTemplate.trim() || 'O código HTML gerado aparecerá aqui.';
+        }
+
+        /**
+         * Adiciona um novo conjunto de campos para um documento dinâmico.
+         */
+        function addDynamicDoc() {
+            docCounter++;
+            const docId = `doc-${docCounter}`;
+            const newDocRow = document.createElement('div');
+            // Estrutura de linha de grade para o novo documento
+            newDocRow.classList.add('grid', 'grid-cols-1', 'md:grid-cols-4', 'gap-x-6', 'dynamic-doc');
+            newDocRow.setAttribute('id', docId);
+
+            // O conteúdo do documento é colocado na segunda coluna em diante
+            const docContent = `
+                <div class="md:col-start-2 md:col-span-3 p-4 border border-dashed border-gray-300 rounded-lg space-y-3 relative dynamic-doc-content">
+                    <button type="button" class="absolute top-3 right-3 btn btn-danger btn-sm !py-1 !px-2" onclick="removeDynamicDoc('${docId}')" title="Remover Documento">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                    <p class="font-medium text-gray-700">Documento Adicional</p>
+                    <div>
+                        <label class="form-label">Título do Documento</label>
+                        <input type="text" class="form-input doc-title" placeholder="Ex: Adendo 01, Resultado Final">
+                    </div>
+                    <div>
+                        <label class="form-label">Link do Documento (URL)</label>
+                        <input type="url" class="form-input doc-link" placeholder="https://...">
+                    </div>
+                    <div>
+                        <label class="form-label">Cor do Link</label>
+                        <select class="form-select doc-color">
+                            <option value="#0400ff">Azul (Padrão)</option>
+                            <option value="#ff0000">Vermelho (Urgente)</option>
+                            <option value="#008000">Verde (Resultado)</option>
+                            <option value="#000000">Preto (Outros)</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+            newDocRow.innerHTML = docContent;
+            dynamicDocsContainer.appendChild(newDocRow);
+        }
+        
+        window.removeDynamicDoc = function(docId) {
+            const docToRemove = document.getElementById(docId);
+            if (docToRemove) {
+                docToRemove.remove();
+                generateCall();
+            }
+        }
+
+        function copyToClipboard() {
+            htmlOutput.select();
+            try {
+                document.execCommand('copy');
+                copyButton.innerHTML = `<i class="fas fa-check mr-2"></i> Copiado!`;
+            } catch (err) {
+                console.error('Falha ao copiar o texto: ', err);
+                copyButton.innerHTML = `<i class="fas fa-times mr-2"></i> Erro`;
+            }
+            setTimeout(() => {
+                copyButton.innerHTML = `<i class="fas fa-copy mr-2"></i> Copiar Código`;
+            }, 2000);
+        }
+
+        form.addEventListener('input', generateCall);
+        copyButton.addEventListener('click', copyToClipboard);
+        addDocButton.addEventListener('click', addDynamicDoc);
+
+        window.onload = () => {
+            generateCall();
+        };
+    </script>
+
+</body>
+</html>
